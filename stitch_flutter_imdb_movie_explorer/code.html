@@ -1,0 +1,670 @@
+<!DOCTYPE html><html class="dark" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CineScope IMDb - Explorador de Películas</title>
+<!-- Google Fonts: Inter & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config verbatim from instructions -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-fixed": "#07006c",
+            "inverse-primary": "#855300",
+            "on-tertiary": "#003824",
+            "surface-container-highest": "#2d3449",
+            "on-surface-variant": "#d8c3ad",
+            "error-container": "#93000a",
+            "tertiary-fixed": "#6ffbbe",
+            "outline-variant": "#534434",
+            "primary-container": "#f59e0b",
+            "on-error": "#690005",
+            "surface-variant": "#2d3449",
+            "on-secondary": "#1000a9",
+            "surface-container-low": "#131b2e",
+            "secondary-fixed-dim": "#c0c1ff",
+            "on-primary-container": "#613b00",
+            "on-surface": "#dae2fd",
+            "surface": "#0b1326",
+            "on-tertiary-fixed-variant": "#005236",
+            "secondary": "#c0c1ff",
+            "on-background": "#dae2fd",
+            "outline": "#a08e7a",
+            "surface-bright": "#31394d",
+            "on-secondary-container": "#b0b2ff",
+            "tertiary-container": "#30c88f",
+            "surface-tint": "#ffb95f",
+            "on-secondary-fixed-variant": "#2f2ebe",
+            "error": "#ffb4ab",
+            "on-error-container": "#ffdad6",
+            "tertiary": "#56e5a9",
+            "inverse-on-surface": "#283044",
+            "primary-fixed-dim": "#ffb95f",
+            "tertiary-fixed-dim": "#4edea3",
+            "secondary-container": "#3131c0",
+            "surface-container-high": "#222a3d",
+            "primary-fixed": "#ffddb8",
+            "on-primary-fixed-variant": "#653e00",
+            "primary": "#ffc174",
+            "inverse-surface": "#dae2fd",
+            "on-tertiary-fixed": "#002113",
+            "background": "#0b1326",
+            "surface-container-lowest": "#060e20",
+            "surface-container": "#171f33",
+            "on-primary-fixed": "#2a1700",
+            "on-tertiary-container": "#004e34",
+            "on-primary": "#472a00",
+            "surface-dim": "#0b1326",
+            "secondary-fixed": "#e1e0ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "gutter": "1rem",
+            "gutter-mobile": "0.75rem",
+            "margin": "1.5rem",
+            "margin-mobile": "1rem"
+          },
+          "fontFamily": {
+            "label-md": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-sm": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "label-lg": ["Inter"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }],
+            "label-sm": ["10px", { "lineHeight": "14px", "fontWeight": "700" }],
+            "headline-md": ["20px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "headline-xl": ["36px", { "lineHeight": "44px", "fontWeight": "800" }],
+            "headline-xl-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "800" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "headline-lg-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "700" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Smooth custom scrollbars for mobile web preview */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex justify-center selection:bg-primary-container selection:text-on-primary-container">
+<!-- Mobile Screen Wrapper (Flutter Canvas Frame) -->
+<div class="w-full max-w-lg min-h-screen bg-background flex flex-col relative pb-28 shadow-2xl">
+<!-- TopAppBar (Shared Component Implementation) -->
+<header class="sticky top-0 z-40 bg-surface-container-low dark:bg-surface-container-lowest flex justify-between items-center w-full px-4 h-16 max-w-lg mx-auto">
+<div class="flex items-center space-x-3">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-primary dark:text-primary hover:bg-surface-container-high dark:hover:bg-surface-container-high hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="movie">movie</span>
+</button>
+<div>
+<div class="flex items-center space-x-1.5">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary tracking-tight">CineScope</span>
+<span class="px-1.5 py-0.5 rounded-lg bg-surface-container-highest text-secondary font-label-sm text-label-sm">IMDb</span>
+</div>
+<div class="flex items-center space-x-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-tertiary">IMDb API v2 Activa</span>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-150" title="Ajustes">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+</button>
+<div class="w-9 h-9 rounded-full bg-surface-container-high p-0.5 ring-1 ring-white/10 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="person">person</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 px-4 pt-3 space-y-5">
+<!-- Sección Destacada de Búsqueda Dual y Cruce de Datos -->
+<section class="bg-surface-container-low rounded-xl p-4 shadow-sm relative overflow-hidden">
+<!-- Indicador estético superior -->
+<div class="flex items-center justify-between pb-3 mb-3">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="sync_alt">sync_alt</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Explorador &amp; Validador</span>
+</div>
+<div class="flex items-center space-x-1 bg-surface-container px-2 py-0.5 rounded-full">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Match 98%</span>
+</div>
+</div>
+<div class="space-y-2.5">
+<!-- Campo 1: Buscar película o título -->
+<div class="relative flex items-center">
+<span class="absolute left-3.5 text-on-surface-variant material-symbols-outlined pointer-events-none text-xl" data-icon="search">search</span>
+<input id="search-input-primary" class="w-full h-12 pl-11 pr-10 bg-surface-container text-on-surface placeholder:text-on-surface-variant/60 font-body-md text-body-md rounded-xl focus:ring-1 focus:ring-primary-container focus:outline-none transition-all" placeholder="Ej. Inception, Oppenheimer, Dune..." type="text" value="" oninput="window.handleMovieSearch &amp;&amp; window.handleMovieSearch(this.value)">
+<button class="absolute right-3 text-on-surface-variant hover:text-on-surface active:scale-95 transition-transform" title="Limpiar" onclick="if(window.clearMovieSearch) window.clearMovieSearch()">
+<span class="material-symbols-outlined text-lg" data-icon="close">close</span>
+</button>
+</div>
+<!-- Campo 2: Validar cruce de datos / Criterio -->
+<div class="relative flex items-center">
+<span class="absolute left-3.5 text-secondary material-symbols-outlined pointer-events-none text-xl" data-icon="fact_check">fact_check</span>
+<input id="search-input-secondary" class="w-full h-12 pl-11 pr-24 bg-surface-container text-on-surface placeholder:text-on-surface-variant/60 font-body-md text-body-md rounded-xl focus:ring-1 focus:ring-secondary focus:outline-none transition-all" placeholder="Ej. ID IMDb, Director, Año o Casting..." type="text" value="" oninput="window.handleMovieSearch &amp;&amp; window.handleMovieSearch(this.value)">
+<div class="absolute right-2 px-2 py-1 rounded-lg bg-surface-container-highest text-tertiary flex items-center space-x-1"><span class="material-symbols-outlined text-xs" data-icon="link">link</span>
+<span class="font-label-sm text-label-sm">Listo para cruce</span></div>
+</div>
+<!-- Botón de acción Flutter -->
+<button class="w-full h-12 rounded-full bg-primary-container text-on-primary-container font-label-lg text-label-lg flex items-center justify-center space-x-2 active:scale-95 transition-transform duration-150 font-bold shadow-lg shadow-primary-container/20 mt-1" onclick="if(window.executeFilterCross) window.executeFilterCross()">
+<span class="material-symbols-outlined text-xl" data-icon="filter_alt">filter_alt</span>
+<span class="">Filtrar y Cruzar Datos</span>
+</button>
+</div>
+<!-- Chips Rápidos de Filtro -->
+<div class="flex items-center space-x-2 overflow-x-auto pt-3.5 pb-0.5 no-scrollbar"><button onclick="window.handleMovieSearch &amp;&amp; window.handleMovieSearch('8.')" class="px-3 py-1.5 rounded-full bg-primary-container/15 text-primary text-label-sm font-label-sm whitespace-nowrap flex items-center space-x-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-xs" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">Top Rated</span>
+</button>
+<button onclick="window.handleMovieSearch &amp;&amp; window.handleMovieSearch('2024')" class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm whitespace-nowrap active:scale-95 transition-transform">
+Año 2024
+</button>
+<button onclick="window.handleMovieSearch &amp;&amp; window.handleMovieSearch('Sci-Fi')" class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm whitespace-nowrap active:scale-95 transition-transform">
+Sci-Fi
+</button>
+<button onclick="window.handleMovieSearch &amp;&amp; window.handleMovieSearch('Cartelera')" class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm whitespace-nowrap flex items-center space-x-1 active:scale-95 transition-transform">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="">En Cartelera</span>
+</button>
+<button onclick="window.handleMovieSearch &amp;&amp; window.handleMovieSearch('IMAX')" class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-label-sm font-label-sm whitespace-nowrap active:scale-95 transition-transform">
+IMAX
+</button>
+<button onclick="window.clearMovieSearch &amp;&amp; window.clearMovieSearch()" class="px-3 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-label-sm font-label-sm whitespace-nowrap active:scale-95 transition-transform flex items-center space-x-1">
+<span class="material-symbols-outlined text-xs">restart_alt</span>
+<span class="">Todos</span>
+</button></div>
+</section>
+<!-- Encabezado de Resultados -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-baseline space-x-2">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold tracking-tight">Películas Coincidentes</h2>
+<span id="movies-counter" class="font-label-md text-label-md text-on-surface-variant">(8 encontradas)</span>
+</div>
+<button class="text-secondary font-label-md text-label-md flex items-center space-x-0.5 hover:underline">
+<span class="">Ordenar</span>
+<span class="material-symbols-outlined text-sm" data-icon="expand_more">expand_more</span>
+</button>
+</div>
+<!-- Lista de Películas (Tarjetas Cuidadas y Claras) -->
+<section class="space-y-3.5" id="movies-list-container">
+<!-- Película 1: Dune: Part Two -->
+<article class="bg-surface-container-low rounded-xl p-3 flex space-x-3.5 hover:bg-surface-container transition-colors duration-150 relative overflow-hidden group" data-search="dune part two ciencia ficcion 2024 tt15239678 denis villeneuve">
+<!-- Poster Vertical (aspect 2:3) -->
+<div class="w-24 sm:w-28 aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 relative bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A striking cinematic movie poster featuring Paul Atreides standing on colossal desert dunes at golden hour sunset with two radiant suns illuminating the horizon, atmospheric cinematic film grain, dark amber and deep slate tones, hyper-detailed composition evoking prestige science fiction cinema." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6L8xyTbrrUzCa6GZn37EGYSC1hTWdi3xmMh3ZpGyMrI2bhFOnP5DBQU6c4afIvhwPx_bLWu7cYoSKKAT7JJaZWTcd4F1RpSAYdqcWtOOFncyJgc16N5j1aKon4hvnG9BZXp7bafrWBpGYEfK4milv54Q9jTFuQlBqaEUtKXGmmoLvltVik7D_BvEmO0r3F_kvoVbvFjs0ELADxxZSy_eUmgQSsPwVZAFrmD-Rmtee">
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur text-primary font-label-sm text-label-sm flex items-center space-x-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">8.6</span>
+</div>
+</div>
+<!-- Metadatos y Acciones -->
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<!-- Badge de Cruce Verificado -->
+<div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm mb-1.5">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+<span class="">Cruce verificado: tt15239678</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Dune: Part Two</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center flex-wrap gap-1">
+<span class="text-primary-container font-label-md text-label-md font-bold">⭐ 8.6</span>
+<span class="">•</span>
+<span class="">2024</span>
+<span class="">•</span>
+<span class="">2h 46m</span>
+<span class="">•</span>
+<span class="text-secondary font-medium">Ciencia Ficción</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/80 line-clamp-2 mt-1.5">
+                Paul Atreides se une a Chani y los Fremen mientras busca venganza contra los conspiradores que destruyeron a su familia.
+              </p>
+</div>
+<!-- Botones de Acción Flutter -->
+<div class="flex items-center justify-between pt-2 mt-1 border-t border-white/5">
+<div class="flex items-center space-x-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">IMAX</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">4K</span>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" title="Guardar en favoritos">
+<span class="material-symbols-outlined text-lg" data-icon="bookmark">bookmark</span>
+</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm flex items-center space-x-1 hover:bg-surface-bright active:scale-95 transition-transform">
+<span class="">Ficha</span>
+<span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Película 2: Spider-Man: Across the Spider-Verse -->
+<article class="bg-surface-container-low rounded-xl p-3 flex space-x-3.5 hover:bg-surface-container transition-colors duration-150 relative overflow-hidden group" data-search="spider-man spider man across the spider-verse animacion accion 2023 tt9362722">
+<!-- Poster Vertical -->
+<div class="w-24 sm:w-28 aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 relative bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A dynamic high-contrast stylized poster of Spider-Man falling upside down against an electric neon cityscape of alternating magenta, deep cyan, and charcoal textures, vibrant comic book Ben-Day dot shading, sharp cinematic framing, prestige animation aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkP3zdGcYzI78CMoXLTjhLmsvWWUl8FsGwiesVSi4X_X5xgj9ZxIEdAMUlBKXl0py9oAx0ILkAYnqhphOcBRMRd-MdKIuWfuyBiflzpTrpUnTuuEyi6IXTPQNffCEiO85_iQOotAq_4Uo-eFqvSaiolTpBcm2-5JKYzBMbh5A8Hf56qxSoJy0EhVuqyMroPCoW7320tPv-qM4YkOGBPcBo200WgTMTSLKh4_ECLXZQ">
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur text-primary font-label-sm text-label-sm flex items-center space-x-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">8.7</span>
+</div>
+</div>
+<!-- Metadatos y Acciones -->
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-secondary-container/30 text-secondary font-label-sm text-label-sm mb-1.5">
+<span class="material-symbols-outlined text-xs" data-icon="verified">verified</span>
+<span class="">Coincidencia exacta: tt9362722</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Spider-Man: Across the Spider-Verse</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center flex-wrap gap-1">
+<span class="text-primary-container font-label-md text-label-md font-bold">⭐ 8.7</span>
+<span class="">•</span>
+<span class="">2023</span>
+<span class="">•</span>
+<span class="">2h 20m</span>
+<span class="">•</span>
+<span class="text-secondary font-medium">Animación / Acción</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/80 line-clamp-2 mt-1.5">
+                Miles Morales se catapulta a través del Multiverso donde se encuentra con un equipo de Spider-People encargados de proteger su existencia.
+              </p>
+</div>
+<!-- Botones de Acción Flutter -->
+<div class="flex items-center justify-between pt-2 mt-1 border-t border-white/5">
+<div class="flex items-center space-x-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">Dolby Atmos</span>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-primary-container active:scale-95 transition-all" title="En favoritos">
+<span class="material-symbols-outlined text-lg" data-icon="bookmark" data-weight="fill" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm flex items-center space-x-1 hover:bg-surface-bright active:scale-95 transition-transform">
+<span class="">Ficha</span>
+<span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Película 3: Poor Things -->
+<article class="bg-surface-container-low rounded-xl p-3 flex space-x-3.5 hover:bg-surface-container transition-colors duration-150 relative overflow-hidden group" data-search="poor things comedia drama 2023 oscar yorgos lanthimos tt14230458">
+<!-- Poster Vertical -->
+<div class="w-24 sm:w-28 aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 relative bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="An artistic cinematic movie poster featuring a whimsical Victorian woman portrait with surreal saturated pastel accents against a deeply shadowed architectural backdrop, eccentric lighting and opulent textures, dark moody film composition, fine-art cinema styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHzZH_ZHZO8IPQzkzfFR7kZw-0isIUvuWkRDLJ4ZCzBTknop8aT8KAlY9X0aZbTZIx3v--QstyffdC6GGskdX7X2Tk3dzC9Lb4o-D0BHx3minsTHfefCutX9XrVg1n5pV94MPK7av2lhfJ71E_-CGwRUtx4cUXG16UODrUkMjLC71rQ70-Y0f3E2xqb3MGAm6M-DP5KUiv8JoBNamoIDhCrWSZzSEmBKmUKU4BjFbG">
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur text-primary font-label-sm text-label-sm flex items-center space-x-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">7.9</span>
+</div>
+</div>
+<!-- Metadatos y Acciones -->
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm mb-1.5">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+<span class="">Cruce verificado: tt14230458</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Poor Things</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center flex-wrap gap-1">
+<span class="text-primary-container font-label-md text-label-md font-bold">⭐ 7.9</span>
+<span class="">•</span>
+<span class="">2023</span>
+<span class="">•</span>
+<span class="">2h 21m</span>
+<span class="">•</span>
+<span class="text-secondary font-medium">Comedia / Drama</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/80 line-clamp-2 mt-1.5">
+                La increíble historia sobre la fantástica evolución de Bella Baxter, una joven devuelta a la vida por un brillante científico no ortodoxo.
+              </p>
+</div>
+<!-- Botones de Acción Flutter -->
+<div class="flex items-center justify-between pt-2 mt-1 border-t border-white/5">
+<div class="flex items-center space-x-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">Oscar Winner</span>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" title="Guardar en favoritos">
+<span class="material-symbols-outlined text-lg" data-icon="bookmark">bookmark</span>
+</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm flex items-center space-x-1 hover:bg-surface-bright active:scale-95 transition-transform">
+<span class="">Ficha</span>
+<span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Película 4: Interstellar -->
+<article class="bg-surface-container-low rounded-xl p-3 flex space-x-3.5 hover:bg-surface-container transition-colors duration-150 relative overflow-hidden group" data-search="interstellar aventura drama christopher nolan 2014 sci-fi tt0816692">
+<!-- Poster Vertical -->
+<div class="w-24 sm:w-28 aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 relative bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A breathtaking cinematic poster displaying an astronaut in a high-tech spacesuit standing in deep black outer space beside a luminous glowing accretion disk of a massive cosmic black hole, dark charcoal void illuminated by warm gravitational light, majestic prestige sci-fi imagery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApWN4OttZ8pYUg0gisQLTg37xCegLPiZrlMQqYST35rP4hfyj4nWA8ULwqXFzAMcIHAjGAV2PO0YgfnQuWs2j_0Vvfp2BeSUWy4gfRN8nxxAx5qXzwG7V11vUlfDRhkZjlC0-CLLbhEEAzmRBWoB_3eLzXpwu76I046W71ZuZto5_8tiTiVSXGyDijCyJ9oYunI7W-soPRWDE7ivTQOcxlLaUHIf5rZGMfjCVHJ_RI">
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur text-primary font-label-sm text-label-sm flex items-center space-x-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">8.7</span>
+</div>
+</div>
+<!-- Metadatos y Acciones -->
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm mb-1.5">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+<span class="">Cruce verificado: tt0816692</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Interstellar</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center flex-wrap gap-1">
+<span class="text-primary-container font-label-md text-label-md font-bold">⭐ 8.7</span>
+<span class="">•</span>
+<span class="">2014</span>
+<span class="">•</span>
+<span class="">2h 49m</span>
+<span class="">•</span>
+<span class="text-secondary font-medium">Aventura / Drama</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/80 line-clamp-2 mt-1.5">
+                Cuando la Tierra se vuelve inhabitable, un equipo de exploradores emprende la misión más importante de la historia de la humanidad.
+              </p>
+</div>
+<!-- Botones de Acción Flutter -->
+<div class="flex items-center justify-between pt-2 mt-1 border-t border-white/5">
+<div class="flex items-center space-x-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">Clásico Moderno</span>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" title="Guardar en favoritos">
+<span class="material-symbols-outlined text-lg" data-icon="bookmark">bookmark</span>
+</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm flex items-center space-x-1 hover:bg-surface-bright active:scale-95 transition-transform">
+<span class="">Ficha</span>
+<span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Película 5: The Batman -->
+<article data-search="the batman accion crimen matt reeves robert pattinson 2022 tt1877830" class="bg-surface-container-low rounded-xl p-3 flex space-x-3.5 hover:bg-surface-container transition-colors duration-150 relative overflow-hidden group">
+<div class="w-24 sm:w-28 aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 relative bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="The Batman poster" src="https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?auto=format&amp;fit=crop&amp;w=400&amp;q=80">
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur text-primary font-label-sm text-label-sm flex items-center space-x-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">7.8</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm mb-1.5">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+<span class="">Cruce verificado: tt1877830</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">The Batman</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center flex-wrap gap-1">
+<span class="text-primary-container font-label-md text-label-md font-bold">⭐ 7.8</span>
+<span class="">•</span>
+<span class="">2022</span>
+<span class="">•</span>
+<span class="">2h 56m</span>
+<span class="">•</span>
+<span class="text-secondary font-medium">Acción / Crimen</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/80 line-clamp-2 mt-1.5">
+En su segundo año luchando contra el crimen, Batman persigue a Riddler mientras descubre oscuros secretos sobre Gotham y su familia.
+</p>
+</div>
+<div class="flex items-center justify-between pt-2 mt-1 border-t border-white/5">
+<div class="flex items-center space-x-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">Dolby Atmos</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">4K HDR</span>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" title="Guardar en favoritos">
+<span class="material-symbols-outlined text-lg" data-icon="bookmark">bookmark</span>
+</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm flex items-center space-x-1 hover:bg-surface-bright active:scale-95 transition-transform">
+<span class="">Ficha</span>
+<span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+
+<!-- Película 6: Oppenheimer -->
+<article data-search="oppenheimer biografia drama historia christopher nolan cillian murphy 2023 oscar tt15398776" class="bg-surface-container-low rounded-xl p-3 flex space-x-3.5 hover:bg-surface-container transition-colors duration-150 relative overflow-hidden group">
+<div class="w-24 sm:w-28 aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 relative bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Oppenheimer poster" src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&amp;fit=crop&amp;w=400&amp;q=80">
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur text-primary font-label-sm text-label-sm flex items-center space-x-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">8.9</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm mb-1.5">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+<span class="">Cruce verificado: tt15398776</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Oppenheimer</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center flex-wrap gap-1">
+<span class="text-primary-container font-label-md text-label-md font-bold">⭐ 8.9</span>
+<span class="">•</span>
+<span class="">2023</span>
+<span class="">•</span>
+<span class="">3h 00m</span>
+<span class="">•</span>
+<span class="text-secondary font-medium">Biografía / Drama</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/80 line-clamp-2 mt-1.5">
+La crónica del físico teórico J. Robert Oppenheimer liderando el Proyecto Manhattan y el desarrollo de la bomba atómica.
+</p>
+</div>
+<div class="flex items-center justify-between pt-2 mt-1 border-t border-white/5">
+<div class="flex items-center space-x-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">IMAX 70mm</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">7 Premios Oscar</span>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" title="Guardar en favoritos">
+<span class="material-symbols-outlined text-lg" data-icon="bookmark">bookmark</span>
+</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm flex items-center space-x-1 hover:bg-surface-bright active:scale-95 transition-transform">
+<span class="">Ficha</span>
+<span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+
+<!-- Película 7: Blade Runner 2049 -->
+<article data-search="blade runner 2049 ciencia ficcion sci-fi denis villeneuve ryan gosling harrison ford 2017 tt1856101" class="bg-surface-container-low rounded-xl p-3 flex space-x-3.5 hover:bg-surface-container transition-colors duration-150 relative overflow-hidden group">
+<div class="w-24 sm:w-28 aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 relative bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Blade Runner 2049 poster" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&amp;fit=crop&amp;w=400&amp;q=80">
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur text-primary font-label-sm text-label-sm flex items-center space-x-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">8.0</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-secondary-container/30 text-secondary font-label-sm text-label-sm mb-1.5">
+<span class="material-symbols-outlined text-xs" data-icon="verified">verified</span>
+<span class="">Coincidencia exacta: tt1856101</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Blade Runner 2049</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center flex-wrap gap-1">
+<span class="text-primary-container font-label-md text-label-md font-bold">⭐ 8.0</span>
+<span class="">•</span>
+<span class="">2017</span>
+<span class="">•</span>
+<span class="">2h 44m</span>
+<span class="">•</span>
+<span class="text-secondary font-medium">Sci-Fi / Misterio</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/80 line-clamp-2 mt-1.5">
+Un blade runner de la policía de Los Ángeles desentierra un secreto oculto que lo lleva a buscar al desaparecido Rick Deckard.
+</p>
+</div>
+<div class="flex items-center justify-between pt-2 mt-1 border-t border-white/5">
+<div class="flex items-center space-x-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">IMAX</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">Dolby Vision</span>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" title="Guardar en favoritos">
+<span class="material-symbols-outlined text-lg" data-icon="bookmark">bookmark</span>
+</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm flex items-center space-x-1 hover:bg-surface-bright active:scale-95 transition-transform">
+<span class="">Ficha</span>
+<span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+
+<!-- Película 8: Gladiator II -->
+<article data-search="gladiator ii accion aventura drama ridley scott paul mescal 2024 en cartelera tt9603220" class="bg-surface-container-low rounded-xl p-3 flex space-x-3.5 hover:bg-surface-container transition-colors duration-150 relative overflow-hidden group">
+<div class="w-24 sm:w-28 aspect-[2/3] rounded-lg overflow-hidden flex-shrink-0 relative bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Gladiator II poster" src="https://images.unsplash.com/photo-1533928298208-27ff66555d8d?auto=format&amp;fit=crop&amp;w=400&amp;q=80">
+<div class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur text-primary font-label-sm text-label-sm flex items-center space-x-0.5">
+<span class="material-symbols-outlined text-[10px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="">7.4</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col justify-between py-0.5">
+<div>
+<div class="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm mb-1.5">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+<span class="">Cruce verificado: tt9603220</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">Gladiator II</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center flex-wrap gap-1">
+<span class="text-primary-container font-label-md text-label-md font-bold">⭐ 7.4</span>
+<span class="">•</span>
+<span class="">2024</span>
+<span class="">•</span>
+<span class="">2h 28m</span>
+<span class="">•</span>
+<span class="text-secondary font-medium">Acción / Épica</span>
+</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/80 line-clamp-2 mt-1.5">
+Años después de presenciar la caída de Máximo, Lucio se ve obligado a entrar en el Coliseo tras la conquista de su hogar por emperadores tiranos.
+</p>
+</div>
+<div class="flex items-center justify-between pt-2 mt-1 border-t border-white/5">
+<div class="flex items-center space-x-1.5">
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">Estreno 2024</span>
+<span class="px-2 py-0.5 rounded text-[11px] font-label-sm bg-surface-container-high text-on-surface-variant">Dolby Cinema</span>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-all" title="Guardar en favoritos">
+<span class="material-symbols-outlined text-lg" data-icon="bookmark">bookmark</span>
+</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface text-label-sm font-label-sm flex items-center space-x-1 hover:bg-surface-bright active:scale-95 transition-transform">
+<span class="">Ficha</span>
+<span class="material-symbols-outlined text-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+
+<!-- Mensaje de Sin Resultados -->
+<div id="no-results-message" class="hidden text-center py-10 bg-surface-container-low rounded-xl p-6">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">search_off</span>
+<p class="font-headline-sm text-on-surface font-semibold">No se encontraron películas</p>
+<p class="text-body-sm text-on-surface-variant mt-1">Prueba modificando tus términos de búsqueda o limpiando el filtro.</p>
+<button onclick="window.clearMovieSearch &amp;&amp; window.clearMovieSearch()" class="mt-4 px-4 py-2 rounded-full bg-primary-container text-on-primary-container font-label-sm font-bold">
+Limpiar Filtros
+</button>
+</div>
+
+<!-- Indicador Estilizado de Carga / Infinite Scroll -->
+<div id="infinite-scroll-loader" class="py-5 flex flex-col items-center justify-center space-y-2 bg-surface-container-low/60 rounded-xl border border-white/5">
+<div class="flex items-center space-x-2 text-tertiary">
+<span class="material-symbols-outlined animate-spin text-xl">progress_activity</span>
+<span class="font-label-sm text-label-sm font-medium">Cargando más películas de IMDb...</span>
+</div>
+<div class="flex items-center space-x-1.5 text-on-surface-variant text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+<span class="">Sincronizando metadatos de taquilla y ratings globales en tiempo real</span>
+</div>
+</div></section>
+</main>
+<!-- BottomNavBar (Shared Component Implementation) -->
+<!-- Screen intent is Explorar (main explore screen), so 'Explorar' is the active item with style_active_navigation -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-low dark:bg-surface-container-lowest max-w-lg mx-auto right-0 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95">
+<!-- Item 1: Explorar (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary-container text-on-primary-container dark:text-on-primary-container rounded-full px-3 py-1.5 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="movie" data-weight="fill" style="font-variation-settings: 'FILL' 1;">movie</span>
+<span class="text-label-sm font-label-sm mt-0.5">Explorar</span>
+</a>
+<!-- Item 2: Validar (INACTIVE) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1.5 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="fact_check">fact_check</span>
+<span class="text-label-sm font-label-sm mt-0.5">Validar</span>
+</a>
+<!-- Item 3: Favoritos (INACTIVE) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1.5 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="bookmark">bookmark</span>
+<span class="text-label-sm font-label-sm mt-0.5">Favoritos</span>
+</a>
+<!-- Item 4: Perfil (INACTIVE) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-3 py-1.5 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="person">person</span>
+<span class="text-label-sm font-label-sm mt-0.5">Perfil</span>
+</a>
+</nav>
+</div>
+
+
+
+
+</body></html>
